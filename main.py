@@ -8,12 +8,13 @@ def main():
         
         if user:
             print("3. Create Project")
-            print("5. Logout")
+            print("4. List Projects")
+            print("5. Logout")  
         else:
             print("1. Register")
             print("2. Login")
-        
-        print("4. List Projects")
+            print("4. List Projects")  
+
         print("0. Exit")
 
         choice = input("Select an option: ").strip()
@@ -24,7 +25,7 @@ def main():
             login()
         elif choice == "3" and user: 
             create_project()
-        elif choice == "4" and user:  
+        elif choice == "4":
             list_projects()
         elif choice == "5" and user:  
             logout()

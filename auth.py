@@ -22,7 +22,8 @@ def register():
     })
 
     save(USER_FILE, users)
-    print("Registration successful.")
+    save(SESSION_FILE, {"email": email})  
+    print("Registration successful. You are now logged in.")
 
 def login():
     email = input("Email: ").strip()
