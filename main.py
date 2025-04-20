@@ -1,0 +1,39 @@
+from auth import register, login, logout, get_current_user
+from projects import create_project, list_projects
+
+def main():
+    while True:
+        user = get_current_user()
+        print("\n--- Crowdfunding App ---")
+        
+        if user:
+            print("3. Create Project")
+            print("5. Logout")
+        else:
+            print("1. Register")
+            print("2. Login")
+        
+        print("4. List Projects")
+        print("0. Exit")
+
+        choice = input("Select an option: ").strip()
+
+        if choice == "1" and not user:  
+            register()
+        elif choice == "2" and not user:  
+            login()
+        elif choice == "3" and user: 
+            create_project()
+        elif choice == "4" and user:  
+            list_projects()
+        elif choice == "5" and user:  
+            logout()
+        elif choice == "0":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid option.")
+
+
+if __name__ == "__main__":
+    main()
