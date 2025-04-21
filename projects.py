@@ -3,7 +3,7 @@ from auth import get_current_user
 from dependancies import load, save, PROJECTS_FILE
 from validations import get_valid_float, get_valid_date, get_valid_float_optional 
 
-def _select_user_project(action):
+def _select_user_project(action): #will be used in edit and delete project functions so no need to write it another module and import it 
     all_projects = load(PROJECTS_FILE)
     mine = [p for p in all_projects if p['owner'] == get_current_user()['email']]
     if not mine:
