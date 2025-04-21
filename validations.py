@@ -25,3 +25,13 @@ def get_valid_date(prompt, start_date: datetime = None):
             return date
         except ValueError:
             print("Invalid date value. Please enter a valid date.")
+
+def get_valid_float_optional(prompt: str, default: float) -> float:
+    raw = input(prompt).strip()
+    if not raw:
+        return default
+    try:
+        return float(raw)
+    except ValueError:
+        print("Invalid number; keeping previous value.")
+        return default

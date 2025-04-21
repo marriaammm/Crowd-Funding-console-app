@@ -1,7 +1,26 @@
 from datetime import datetime
 from auth import get_current_user
 from dependancies import load, save, PROJECTS_FILE
-from validations import get_valid_float, get_valid_date  
+from validations import get_valid_float, get_valid_date, get_valid_float_optional 
+
+def _select_user_project(action):
+    all_projects = load(PROJECTS_FILE)
+    mine = [p for p in all_projects if p['owner'] == get_current_user()['email']]
+    if not mine:
+        print(f"You have no projects to {action}.")
+        return None,None
+    print(f"\nYour projects:")
+    for i, p in enumerate(mine, start=1):
+        print(f"[{i}] {p['title']} ({p['start']} to {p['end']})")
+    try:
+        selected = int(input(f"Select a project to {action}: "))
+        project = mine[selected - 1]
+    except (ValueError, IndexError):
+        print("Invalid selection.")
+        return None     
+    
+    return project,all_projects
+
 
 def create_project():
     user = get_current_user()
@@ -43,31 +62,19 @@ def list_projects():
         print(f"Duration: {p['start']} to {p['end']}")
 
 def edit_project():
-    projects = load(PROJECTS_FILE)
-    mine = [p for p in projects if p['owner'] == get_current_user()['email']]
-    if not mine:
-        print("You have no projects to edit.")
+    project, projects = _select_user_project("edit")
+    if not project:
         return
-    
-    print("\nYour projects:")
-    for i, p in enumerate(mine, start=1):
-        print(f"[{i}] {p['title']} ({p['start']} to {p['end']})")
-    
-    try:
-        selected = int(input("Select a project to edit: "))
-        project = mine[selected - 1]
-    except (ValueError, IndexError):
-        print("Invalid selection.")
-        return
-
     new_title   = input(f"Title [{project['title']}]: ").strip() or project['title']
     new_details = input(f"Details [{project['details']}]: ").strip() or project['details']
-    new_target  = get_valid_float(f"Target [{project['target']}]: ") or project['target']
-
+    project['target'] = get_valid_float_optional(
+        f"Target [{project['target']}]: ",
+        default=project['target']
+    )
     project.update({
         'title': new_title,
         'details': new_details,
-        'target': new_target,
+        'target': project['target'],
         'start': project['start'],
         'end': project['end']
     })
@@ -75,21 +82,8 @@ def edit_project():
     print("Project updated.")
 
 def delete_project():
-    projects = load(PROJECTS_FILE)
-    mine = [p for p in projects if p['owner'] == get_current_user()['email']]
-    if not mine:
-        print("You have no projects to edit.")
-        return
-    
-    print("\nYour projects:")
-    for i, p in enumerate(mine, start=1):
-        print(f"[{i}] {p['title']} ({p['start']} to {p['end']})")
-    
-    try:
-        selected = int(input("Select a project to delete: "))
-        project = mine[selected - 1]
-    except (ValueError, IndexError):
-        print("Invalid selection.")
+    project, projects = _select_user_project("delete")
+    if not project:
         return
     
     confirm = input(f"Type YES to confirm deletion of '{project['title']}': ").strip().lower()
