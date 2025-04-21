@@ -1,5 +1,5 @@
-from dependancies import load, save, USER_FILE, SESSION_FILE
-from authValidations import valid_email, valid_phone, get_valid_input, get_confirmed_password
+from data_manager import load, save, USER_FILE, SESSION_FILE
+from validation.auth_validations import valid_email, valid_phone, get_valid_input, get_confirmed_password
 import getpass
 
 def register():
