@@ -1,5 +1,5 @@
 from auth import register, login, logout, get_current_user
-from projects import create_project, list_projects
+from projects import create_project, list_projects, edit_project
 
 def main():
     while True:
@@ -9,7 +9,8 @@ def main():
         if user:
             print("3. Create Project")
             print("4. List Projects")
-            print("5. Logout")  
+            print("5. Edit Project")
+            print("6. Logout")  
         else:
             print("1. Register")
             print("2. Login")
@@ -28,6 +29,8 @@ def main():
         elif choice == "4":
             list_projects()
         elif choice == "5" and user:  
+            edit_project()
+        elif choice == "6" and user:
             logout()
         elif choice == "0":
             print("Goodbye!")
