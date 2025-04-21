@@ -1,10 +1,10 @@
-# Crowd‑Funding Console App
+# 💰 Crowd‑Funding Console App
 
 A simple console‑based crowdfunding application that allows users to register, log in, and manage fundraising projects using local JSON files for storage.
 
-## Features
+## ✨ Features
 
-### Authentication
+### 🔐 Authentication
 - **Register** new users (auto‑logs in upon success)  
   - First name  
   - Last name  
@@ -15,7 +15,7 @@ A simple console‑based crowdfunding application that allows users to register,
 - **Logout** clears your session  
 - Session persists across runs via `data/session.json`
 
-### Project Management
+### 📊 Project Management
 - **Create** a new project  
   - Title, description, target amount, start/end dates (validated)  
 - **Edit My Project** (only your own)  
@@ -23,7 +23,7 @@ A simple console‑based crowdfunding application that allows users to register,
 - **Search Projects by Date** (find campaigns active on a given day)  
 - **List All Projects** (publicly available)
 
-## Installation
+## 🚀 Installation
 
 1. Clone the repository:  
    ```bash
@@ -39,9 +39,9 @@ A simple console‑based crowdfunding application that allows users to register,
    source venv/bin/activate   # macOS/Linux
    venv\Scripts\activate      # Windows
    ```
-4. No external dependencies—everything uses Python’s standard library.
+4. No external dependencies—everything uses Python's standard library.
 
-## Usage
+## 🎯 Usage
 
 Run the application:
 
@@ -49,7 +49,7 @@ Run the application:
 python main.py
 ```
 
-You’ll see a menu that adapts based on your login state:
+You'll see a menu that adapts based on your login state:
 
 ```
 --- Crowdfunding App ---
@@ -74,7 +74,7 @@ After registering or logging in, the menu becomes:
 
 Just enter the number of the action you want.
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 Crowd‑Funding-console-app/
@@ -91,14 +91,14 @@ Crowd‑Funding-console-app/
 └── .gitignore            # Files/folders to ignore in Git
 ```
 
-## Validation Rules
+## ✅ Validation Rules
 
 - **Email** must match standard pattern (e.g. `user@example.com`)  
 - **Phone** must match Egyptian mobile format: `010/011/012/015 + 8 digits`  
 - **Dates** must be `YYYY‑MM‑DD` and end > start  
 - **Amounts** must be numeric (floats allowed)
 
-## .gitignore
+## ⚠️ .gitignore
 
 Make sure you have a `.gitignore` with entries like:
 
@@ -115,4 +115,4 @@ venv/
 
 This prevents committing user data, sessions, or cache.
 
-Enjoy building and extending your console crowdfunding app!
+✨ Enjoy building and extending your console crowdfunding app!
