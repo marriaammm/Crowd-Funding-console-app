@@ -1,95 +1,118 @@
-# Crowd-Funding-console-app
+# Crowd‑Funding Console App
 
-A simple console-based crowdfunding application that allows users to create and manage fundraising projects.
+A simple console‑based crowdfunding application that allows users to register, log in, and manage fundraising projects using local JSON files for storage.
 
 ## Features
 
-### Authentication System
-- **User Registration** with the following details:
-  - First name
-  - Last name
-  - Email (validated)
-  - Password (with confirmation)
-  - Mobile phone (validated for Egyptian numbers)
-- **Login/Logout** functionality using email and password
-- Session management for authenticated users
+### Authentication
+- **Register** new users (auto‑logs in upon success)  
+  - First name  
+  - Last name  
+  - Email (validated with regex)  
+  - Password (with confirmation)  
+  - Mobile phone (Egyptian format, validated)  
+- **Login** by email + password  
+- **Logout** clears your session  
+- Session persists across runs via `data/session.json`
 
 ### Project Management
-- **Create Projects** with:
-  - Title
-  - Detailed description
-  - Funding target amount
-  - Start and end dates (with validation)
-- **View Projects** 
-  - List all available projects
-  - See project details including owner, target amount, and duration
+- **Create** a new project  
+  - Title, description, target amount, start/end dates (validated)  
+- **Edit My Project** (only your own)  
+- **Delete My Project** (only your own)  
+- **Search Projects by Date** (find campaigns active on a given day)  
+- **List All Projects** (publicly available)
 
 ## Installation
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-```
-
-2. Navigate to the project directory:
-```bash
-cd crowdfunding-console-app
-```
-
-3. No additional dependencies required - uses Python standard library only.
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/marriaammm/Crowd-Funding-console-app.git
+   ```
+2. Enter the project directory:  
+   ```bash
+   cd Crowd-Funding-console-app
+   ```
+3. (Optional) Create a virtual environment and activate it:  
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # macOS/Linux
+   venv\Scripts\activate      # Windows
+   ```
+4. No external dependencies—everything uses Python’s standard library.
 
 ## Usage
 
-1. Run the main application:
+Run the application:
+
 ```bash
 python main.py
 ```
 
-2. Follow the interactive menu:
-- Option 1: Register new user
-- Option 2: Login
-- Option 3: Create new project (authenticated users only)
-- Option 4: List all projects
-- Option 5: Logout (authenticated users only)
-- Option 0: Exit
+You’ll see a menu that adapts based on your login state:
+
+```
+--- Crowdfunding App ---
+1. Register
+2. Login
+7. List All Projects
+0. Exit
+```
+
+After registering or logging in, the menu becomes:
+
+```
+--- Crowdfunding App ---
+3. Create Project
+4. Edit My Project
+5. Delete My Project
+6. Search Projects by Date
+7. List All Projects
+8. Logout
+0. Exit
+```
+
+Just enter the number of the action you want.
 
 ## Project Structure
 
 ```
-crowdfunding-console-app/
-├── main.py              # Application entry point
-├── auth.py             # Authentication functionality
-├── projects.py         # Project management
-├── validations.py      # Input validation utilities
-├── authValidations.py  # Authentication-specific validations
-├── dependencies.py     # File handling and data management
-├── data/              # Data storage directory
-│   ├── user.json     # User data
-│   ├── projects.json # Project data
-│   └── session.json  # Current session data
-└── .gitignore        # Git ignore configuration
+Crowd‑Funding-console-app/
+├── main.py               # Entry point & interactive menu
+├── auth.py               # Register, login, logout, session logic
+├── authValidations.py    # Email & phone validation helpers for auth
+├── projects.py           # Create, edit, delete, search, list projects
+├── validations.py        # Numeric & date‑format helpers
+├── dependancies.py       # JSON load/save, file paths, regex constants
+├── data/                 # JSON storage (auto‑created)
+│   ├── user.json         # Registered users
+│   ├── projects.json     # Project records
+│   └── session.json      # Current user session
+└── .gitignore            # Files/folders to ignore in Git
 ```
 
-## Data Storage
-- All data is stored locally in JSON files
-- User data, project information, and session details are persisted between runs
-
 ## Validation Rules
-- Email must follow standard email format
-- Phone numbers must be valid Egyptian mobile numbers
-- Dates must follow YYYY-MM-DD format
-- Project end date must be after start date
-- All monetary values must be valid numbers
 
-## Future Improvements
-- Project editing functionality
-- Project deletion
-- Search projects by date
-- User profile management
-- Project categories
-- Funding contribution system
+- **Email** must match standard pattern (e.g. `user@example.com`)  
+- **Phone** must match Egyptian mobile format: `010/011/012/015 + 8 digits`  
+- **Dates** must be `YYYY‑MM‑DD` and end > start  
+- **Amounts** must be numeric (floats allowed)
 
-## Similar Projects
-- [GoFundMe](https://www.gofundme.com)
-- [Kickstarter](https://www.kickstarter.com)
-- [Crowdfunding.com](https://www.crowdfunding.com)
+## .gitignore
+
+Make sure you have a `.gitignore` with entries like:
+
+```
+__pycache__/
+*.pyc
+
+data/user.json
+data/projects.json
+data/session.json
+
+venv/
+```
+
+This prevents committing user data, sessions, or cache.
+
+Enjoy building and extending your console crowdfunding app!
