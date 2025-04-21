@@ -49,7 +49,7 @@ def edit_project():
         print("You have no projects to edit.")
         return
     
-    print("/nYour projects:")
+    print("\nYour projects:")
     for i, p in enumerate(mine, start=1):
         print(f"[{i}] {p['title']} ({p['start']} to {p['end']})")
     
@@ -73,3 +73,29 @@ def edit_project():
     })
     save(PROJECTS_FILE, projects)
     print("Project updated.")
+
+def delete_project():
+    projects = load(PROJECTS_FILE)
+    mine = [p for p in projects if p['owner'] == get_current_user()['email']]
+    if not mine:
+        print("You have no projects to edit.")
+        return
+    
+    print("\nYour projects:")
+    for i, p in enumerate(mine, start=1):
+        print(f"[{i}] {p['title']} ({p['start']} to {p['end']})")
+    
+    try:
+        selected = int(input("Select a project to delete: "))
+        project = mine[selected - 1]
+    except (ValueError, IndexError):
+        print("Invalid selection.")
+        return
+    
+    confirm = input(f"Type YES to confirm deletion of '{project['title']}': ").strip().lower()
+    if confirm == "yes":
+        projects.remove(project)
+        save(PROJECTS_FILE, projects)
+        print("Project deleted.")
+    else:
+        print("Deletion cancelled.")
