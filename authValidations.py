@@ -1,4 +1,5 @@
 import re
+import getpass
 
 EMAIL_REGEX = re.compile(r"^[\w\.-]+@[\w\.-]+\.\w+$")
 PHONE_REGEX = re.compile(r"^01[0125]\d{8}$")  
@@ -9,15 +10,14 @@ def valid_email(email):
 def valid_phone(phone):
     return PHONE_REGEX.match(phone) is not None
 
-def get_valid_input(prompt: str, validate_fn, error_msg: str) -> str:
+def get_valid_input(prompt, validate_fn, error_msg) :
     while True:
         value = input(prompt).strip()
         if validate_fn(value):
             return value
         print(error_msg)
 
-def get_confirmed_password() -> str:
-    import getpass
+def get_confirmed_password() :
     while True:
         pwd = getpass.getpass("Password: ").strip()
         confirm = getpass.getpass("Confirm password: ").strip()

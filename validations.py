@@ -3,7 +3,7 @@ import re
 
 DATE_REGEX = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
-def get_valid_float(prompt: str) -> float:
+def get_valid_float(prompt) :
     while True:
         value = input(prompt).strip()
         try:
@@ -11,7 +11,7 @@ def get_valid_float(prompt: str) -> float:
         except ValueError:
             print("Invalid amount. Please enter a number.")
 
-def get_valid_date(prompt: str, start_date: datetime = None) -> datetime:
+def get_valid_date(prompt, start_date: datetime = None):
     while True:
         date_str = input(prompt).strip()
         if not DATE_REGEX.match(date_str):
